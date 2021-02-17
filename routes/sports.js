@@ -1,9 +1,12 @@
 const express=require('express');
 const router=express.Router();
-const Sport=require('../models/sports')
+const {Sport,validateSport}=require('../models/sports')
 
 //post:create a new book
-router.post('/',(req,res)=>{   
+router.post('/', async(req,res)=>{   
+    const error=await validateSport(req.body);
+    if(error.message)res.status(400).send(error.message)
+
     sport = new Sport({
         hometeam:req.body.homeName,
         awayteam:req.body.awayName,

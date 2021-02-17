@@ -1,4 +1,5 @@
 const mongoose =require('mongoose')
+const yup=require('yup');
 
 
 
@@ -31,4 +32,21 @@ const SportSchema=new mongoose.Schema({
     }
 });
 
-module.exports=new mongoose.model('Sport',SportSchema);
+   const validateSport=sport=>{
+          const schema=yup.object().shape({
+              homeName:yup.string().required().min(2).max(50),
+              awayName:yup.string().required().min(2).max(50),
+              leagueName:yup.string().required().min(2).max(50),
+              pickTip:yup.string().required().min(2).max(50)
+          });
+          return schema
+          .validate(sport)
+          .then(sport=>sport)
+          .catch(error=>{
+              return{
+                  message:error.message
+              }
+          });
+   };
+exports.Sport=new mongoose.model('Sport',SportSchema);
+exports.validateSport=validateSport;

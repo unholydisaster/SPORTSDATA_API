@@ -13,7 +13,8 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.11.16"
+    "mongoose": "^5.11.16",
+    "yup": "^0.32.9"
   },
   "optionalDependencies": {
     "nodemon": "^2.0.7"
