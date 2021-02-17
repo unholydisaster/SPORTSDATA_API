@@ -1,5 +1,5 @@
 const mongoose =require('mongoose')
-const League=require('./leagues')
+
 
 
 //sports schema
@@ -7,22 +7,28 @@ const SportSchema=new mongoose.Schema({
     hometeam:{
         type:String,
         required:true,
-        minlength:3,
+        minlength:2,
         maxlength:50
     },
     awayteam:{
         type:String,
         required:true,
-        minlength:3,
+        minlength:2,
         maxlength:50
     },
-    league:League.schema,
+    league:{
+        type:String,
+        required:true,
+        minlength:2,
+        maxlength:50
+
+    },
     pick:{
         type:String,
         required:true,
-        minlength:3,
+        minlength:2,
         maxlength:50
     }
 });
 
-module.exports=new mongoose.model('Sports',SportSchema);
+module.exports=new mongoose.model('Sport',SportSchema);

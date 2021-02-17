@@ -1,8 +1,8 @@
 const express=require("express");
-mongoose=require("mongoose");
+const mongoose=require("mongoose");
 const app=express();
 require('dotenv').config();
-const sportRoute=require('./routes/sport')
+const sportsRoute=require('./routes/sports.js')
 
 const PORT =process.env.PORT|| 3000
 
@@ -11,7 +11,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 //routes
-app.use('/api/sport',sportRoute)
+app.use('/api/sports',sportsRoute);
+
 //connect to mongo db
 mongoose.connect(process.env.MONGO_URL,
 {useNewUrlParser:true}
