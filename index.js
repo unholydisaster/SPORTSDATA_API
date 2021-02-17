@@ -1,5 +1,6 @@
 const express=require("express");
 const mongoose=require("mongoose");
+const winston=require('winston')
 const app=express();
 require('dotenv').config();
 const sportsRoute=require('./routes/sports.js')
@@ -10,20 +11,38 @@ const PORT =process.env.PORT|| 3000
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
+//create a logger
+const logger=winston.createLogger({
+    level:'info',
+    transports:[
+        new winston.transports.Console({
+            format:winston.format.combine(
+                winston.format.colorize({all:true})
+            )
+        }),
+        new winston.transports.File({filename:'error.log',level:'error'})
+    ],
+    exceptionalHandlers:[
+        new winston.transports.File({filename:'path/to/exceptional.log'})
+    ]
+})
+
 //routes
 app.use('/api/sports',sportsRoute);
+
+
 
 //connect to mongo db
 mongoose.connect(process.env.MONGO_URL,
 {useNewUrlParser:true}
 )
 .then(()=>{
-    console.log("connected to mongodb atlas")
+    logger.info("connected to mongoDb atlas")
 }).catch(error =>{
-    console.log("errors",error)
+    logger.error(error.message)
 })
 
 //start server
 app.listen(PORT,()=>{
-    console.log("server started at PORT",PORT);
-})
+    logger.warn(`server started at PORT ${PORT}`)
+});
