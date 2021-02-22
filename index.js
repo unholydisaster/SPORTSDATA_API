@@ -3,6 +3,7 @@ const mongoose=require("mongoose");
 const winston=require('winston')
 const app=express();
 require('dotenv').config();
+const cors=require('cors');
 const sportsRoute=require('./routes/sports.js')
 
 const PORT =process.env.PORT|| 3000
@@ -10,7 +11,7 @@ const PORT =process.env.PORT|| 3000
 //middlewares
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-
+app.use(cors());
 //create a logger
 const logger=winston.createLogger({
     level:'info',
@@ -25,7 +26,7 @@ const logger=winston.createLogger({
     exceptionalHandlers:[
         new winston.transports.File({filename:'path/to/exceptional.log'})
     ]
-})
+})n
 
 //routes
 app.use('/api/sports',sportsRoute);
