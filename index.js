@@ -26,7 +26,7 @@ const logger=winston.createLogger({
     exceptionalHandlers:[
         new winston.transports.File({filename:'path/to/exceptional.log'})
     ]
-})n
+})
 
 //routes
 app.use('/api/sports',sportsRoute);
